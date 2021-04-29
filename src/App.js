@@ -5,6 +5,7 @@ import { Button, Col, Container, Row } from 'react-bootstrap';
 import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import PlacesAutocomplete from 'react-places-autocomplete';
 import RoomIcon from '@material-ui/icons/Room';
+import axios from 'axios';
 
 import copenhagen from './images/copenhagen.jpg';
 import stockholm from './images/stockholm.jpg';
@@ -36,6 +37,7 @@ function App() {
 
   const [bgImg, setBgImg] = useState(countriesArr[firstRdNum].bgImg);
   const [country, setCountry] = useState(countriesArr[firstRdNum].text);
+  const [coordinate, setCoordinate] = useState({ lng: '', lat: '' });
 
   useEffect(() => getBgImg(), [])
 
@@ -47,19 +49,31 @@ function App() {
         setCountry(countriesArr[rdNum].text)
       }, 10000
     );
-
     return () => {
       clearInterval(interval);
     };
   }
 
+  const [timezoneId, setTimeZoneId] = useState('Europe/Helsinki');
+
+  const getTimeZone = (lng, lat) => {
+    const url = `https://maps.googleapis.com/maps/api/timezone/json?location=${lng},${lat}&timestamp=1331161200&key=AIzaSyBjJs2hbIhLaaO5mOt43DwhbVwUvgP1avs`;
+    const request = axios.get(url);
+    return request.then(response => response.data)
+  }
 
   const [yourAddress, setYourAddress] = useState('');
   const [remoteAddress, setRemoteAddress] = useState('');
 
   const handleSelect = selectedAddress => {
     geocodeByAddress(selectedAddress)
-      .then(results => getLatLng(results[0]))
+      .then(results => {
+        const lat = results[0].geometry.viewport.La.i;
+        const lng = results[0].geometry.viewport.Ua.i;
+        getTimeZone(lng, lat)
+          .then(data => setTimeZoneId(data.timeZoneId))
+          .catch(err => console.error(err));
+      })
       .then(latLng => console.log('Success', latLng))
       .catch(error => console.error('Error', error));
   };
@@ -89,7 +103,7 @@ function App() {
               <PlacesAutocomplete
                 value={yourAddress}
                 onChange={text => setYourAddress(text)}
-                onSelect={handleSelect}
+                onSelect={selectedAddress => handleSelect(selectedAddress)}
               >
                 {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
                   <div>
@@ -128,7 +142,7 @@ function App() {
                 )}
               </PlacesAutocomplete>
 
-              <Pickers />
+              <Pickers localeId='sv-SE' timezone={timezoneId} />
             </Container>
 
             <Container>
@@ -226,7 +240,7 @@ const useStyles = makeStyles(theme => ({
       border: 'none'
     },
 
-   
+
   }
 }))
 
