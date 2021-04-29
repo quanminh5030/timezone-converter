@@ -1,8 +1,10 @@
 
-import {  makeStyles, TextField } from '@material-ui/core';
+import { Box, makeStyles } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { Button, Col, Container, Row } from 'react-bootstrap';
-
+import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
+import PlacesAutocomplete from 'react-places-autocomplete';
+import RoomIcon from '@material-ui/icons/Room';
 
 import copenhagen from './images/copenhagen.jpg';
 import stockholm from './images/stockholm.jpg';
@@ -13,6 +15,7 @@ import london from './images/london.jpg';
 import Header from './components/Header';
 
 import MyClock from './components/MyClock';
+import Pickers from './components/Pickers';
 
 
 function App() {
@@ -51,14 +54,25 @@ function App() {
   }
 
 
+  const [yourAddress, setYourAddress] = useState('');
+  const [remoteAddress, setRemoteAddress] = useState('');
+
+  const handleSelect = selectedAddress => {
+    geocodeByAddress(selectedAddress)
+      .then(results => getLatLng(results[0]))
+      .then(latLng => console.log('Success', latLng))
+      .catch(error => console.error('Error', error));
+  };
+
+
   return (
     <div className={classes.bgImg} style={{ backgroundImage: `url(${bgImg})`, }}>
 
       <Header />
 
-      <Container fluid style={{ backgroundColor: 'white', opacity: 0.9 }}>
+      <Container fluid style={{ backgroundColor: 'white', opacity: 0.9, }}>
         <Row>
-          <Col md={5} xs={12} className={classes.calender}>
+          <Col md={4} xs={12} className={classes.calender}>
             <Container>
               <Row className='row align-items-center'>
                 <Col className='align-item-center' md={9} style={{ fontFamily: 'Roboto', fontSize: 18, fontWeight: 'bold', color: '#cf4848' }}>TIME ZONE CONVERTER</Col>
@@ -68,12 +82,103 @@ function App() {
               </Row>
             </Container>
 
+
             <Container>
-              <p style={{fontSize: 14, color: '#8c8c8c', fontWeight: 400, fontFamily: 'Roboto'}}>My location time zone</p>
-              <TextField
-                placeholder='Your location...'
-              />
+              <p style={{ fontSize: 14, color: '#8c8c8c', fontWeight: 400, fontFamily: 'Roboto' }}>My location time zone</p>
+
+              <PlacesAutocomplete
+                value={yourAddress}
+                onChange={text => setYourAddress(text)}
+                onSelect={handleSelect}
+              >
+                {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                  <div>
+                    <input
+                      {...getInputProps({
+                        placeholder: 'Your location...',
+                        className: 'location-search-input',
+                      })}
+                      className={classes.input}
+                    />
+                    <div className="autocomplete-dropdown-container">
+                      {loading && <div>Loading...</div>}
+                      {suggestions.map((suggestion, index) => {
+                        const className = suggestion.active
+                          ? 'suggestion-item--active'
+                          : 'suggestion-item';
+                        // inline style for demonstration purpose
+                        const style = suggestion.active
+                          ? { backgroundColor: '#fafafa', cursor: 'default' }
+                          : { backgroundColor: '#ffffff', cursor: 'pointer' };
+                        return (
+                          <div
+                            key={index}
+                            {...getSuggestionItemProps(suggestion, {
+                              className,
+                              style,
+                            })}
+                          >
+                            <RoomIcon style={{ fontSize: 15, margin: '0 6 0 4' }} color='disabled' />
+                            <span>{suggestion.description}</span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+              </PlacesAutocomplete>
+
+              <Pickers />
             </Container>
+
+            <Container>
+              <p style={{ fontSize: 14, color: '#8c8c8c', fontWeight: 400, fontFamily: 'Roboto' }}>Meeting location time zone</p>
+
+              <PlacesAutocomplete
+                value={remoteAddress}
+                onChange={text => setRemoteAddress(text)}
+                onSelect={handleSelect}
+              >
+                {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                  <div>
+                    <input
+                      {...getInputProps({
+                        placeholder: 'Remote location...',
+                        className: 'location-search-input',
+                      })}
+                      className={classes.input}
+                    />
+                    <div className="autocomplete-dropdown-container">
+                      {loading && <div>Loading...</div>}
+                      {suggestions.map((suggestion, index) => {
+                        const className = suggestion.active
+                          ? 'suggestion-item--active'
+                          : 'suggestion-item';
+                        // inline style for demonstration purpose
+                        const style = suggestion.active
+                          ? { backgroundColor: '#fafafa', cursor: 'default' }
+                          : { backgroundColor: '#ffffff', cursor: 'pointer' };
+                        return (
+                          <div
+                            key={index}
+                            {...getSuggestionItemProps(suggestion, {
+                              className,
+                              style,
+                            })}
+                          >
+                            <RoomIcon style={{ fontSize: 15, margin: '0 6 0 4' }} color='disabled' />
+                            <span>{suggestion.description}</span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+              </PlacesAutocomplete>
+
+              <Pickers localeId='sv-SE' timezone='Europe/Stockholm' />
+            </Container>
+
           </Col>
         </Row>
       </Container>
@@ -86,10 +191,6 @@ function App() {
 }
 
 const useStyles = makeStyles(theme => ({
-  calendar: {
-    backgroundColor: 'orange',
-    height: 200
-  },
 
   bgImg: {
     width: '100%',
@@ -113,6 +214,19 @@ const useStyles = makeStyles(theme => ({
     '&:hover': {
       backgroundColor: '#cc4747'
     },
+
+    input: {
+      width: '94%',
+      height: 40,
+      float: 'left',
+      padding: '0% 2%',
+      background: 'transparent',
+      color: '#797979',
+      fontWeight: 'bold',
+      border: 'none'
+    },
+
+   
   }
 }))
 
