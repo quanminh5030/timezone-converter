@@ -2,11 +2,36 @@ import React, { useState } from 'react'
 import PlacesAutocomplete from 'react-places-autocomplete';
 import RoomIcon from '@material-ui/icons/Room';
 import Pickers from './Pickers';
-import { Container, makeStyles } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
+import { geocodeByAddress } from 'react-places-autocomplete';
+import axios from 'axios';
 
-const MeetingLocation = ({ timezoneId, handleSelect }) => {
-    const classes = useStyles();
+const MeetingLocation = () => {
     const [remoteAddress, setRemoteAddress] = useState('');
+    const [inputPlaceholder, setInputPlaceholder] = useState('Stockholm, Sweden, Globuzzer');
+
+    const [timezoneId, setTimeZoneId] = useState('Europe/Stockholm');
+
+    const getTimeZone = (lng, lat) => {
+        const url = `https://maps.googleapis.com/maps/api/timezone/json?location=${lng},${lat}&timestamp=1331161200&key=AIzaSyBjJs2hbIhLaaO5mOt43DwhbVwUvgP1avs`;
+        const request = axios.get(url);
+        return request.then(response => response.data)
+    }
+
+    const handleSelect = selectedAddress => {
+        setRemoteAddress(selectedAddress)
+
+        geocodeByAddress(selectedAddress)
+            .then(results => {
+                const lat = results[0].geometry.viewport.La.i;
+                const lng = results[0].geometry.viewport.Ua.i;
+                getTimeZone(lng, lat)
+                    .then(data => setTimeZoneId(data.timeZoneId))
+                    .catch(err => console.error(err));
+            })
+            .then(latLng => console.log('Success', latLng))
+            .catch(error => console.error('Error', error));
+    };
 
     return (
         <>
@@ -24,7 +49,7 @@ const MeetingLocation = ({ timezoneId, handleSelect }) => {
                         <div>
                             <input
                                 {...getInputProps({
-                                    placeholder: 'Remote location...',
+                                    placeholder: inputPlaceholder,
                                     className: 'location-search-input',
                                 })}
                                 style={{
@@ -37,6 +62,7 @@ const MeetingLocation = ({ timezoneId, handleSelect }) => {
                                     fontWeight: 'bold',
                                     border: 'none'
                                 }}
+                                onClick={() => setInputPlaceholder('Remote location ...')}
                             />
                             <div className="autocomplete-dropdown-container">
                                 {loading && <div>Loading...</div>}
@@ -66,7 +92,7 @@ const MeetingLocation = ({ timezoneId, handleSelect }) => {
                     )}
                 </PlacesAutocomplete>
 
-                <Pickers localeId='sv-SE' timezone='Europe/Stockholm' />
+                <Pickers localeId='sv-SE' timezone={timezoneId} />
             </div>
 
         </>
@@ -75,7 +101,7 @@ const MeetingLocation = ({ timezoneId, handleSelect }) => {
 
 const useStyles = makeStyles(theme => ({
 
-    
+
 }))
 
 export default MeetingLocation

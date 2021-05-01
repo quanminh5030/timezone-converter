@@ -2,9 +2,36 @@ import React, { useState } from 'react'
 import PlacesAutocomplete from 'react-places-autocomplete';
 import RoomIcon from '@material-ui/icons/Room';
 import Pickers from './Pickers';
+import { geocodeByAddress } from 'react-places-autocomplete';
 
-const MyLocation = ({ timezoneId, handleSelect }) => {
+import axios from 'axios';
+
+const MyLocation = () => {
     const [yourAddress, setYourAddress] = useState('');
+    const [inputPlaceholder, setInputPlaceholder] = useState('Helsinki');
+
+    const [timezoneId, setTimeZoneId] = useState('Europe/Helsinki');
+
+    const getTimeZone = (lng, lat) => {
+        const url = `https://maps.googleapis.com/maps/api/timezone/json?location=${lng},${lat}&timestamp=1331161200&key=AIzaSyBjJs2hbIhLaaO5mOt43DwhbVwUvgP1avs`;
+        const request = axios.get(url);
+        return request.then(response => response.data)
+    }
+
+    const handleSelect = selectedAddress => {
+        setYourAddress(selectedAddress)
+
+        geocodeByAddress(selectedAddress)
+            .then(results => {
+                const lat = results[0].geometry.viewport.La.i;
+                const lng = results[0].geometry.viewport.Ua.i;
+                getTimeZone(lng, lat)
+                    .then(data => setTimeZoneId(data.timeZoneId))
+                    .catch(err => console.error(err));
+            })
+            .then(latLng => console.log('Success', latLng))
+            .catch(error => console.error('Error', error));
+    };
 
 
     return (
@@ -25,7 +52,7 @@ const MyLocation = ({ timezoneId, handleSelect }) => {
                         <div>
                             <input
                                 {...getInputProps({
-                                    placeholder: 'Your location...',
+                                    placeholder: inputPlaceholder,
                                     className: 'location-search-input',
                                 })}
                                 style={{
@@ -38,6 +65,8 @@ const MyLocation = ({ timezoneId, handleSelect }) => {
                                     fontWeight: 'bold',
                                     border: 'none'
                                 }}
+
+                                onClick={() => setInputPlaceholder('Your location ...')}
                             />
                             <div className="autocomplete-dropdown-container">
                                 {loading && <div>Loading...</div>}

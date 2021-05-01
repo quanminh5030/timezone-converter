@@ -1,13 +1,8 @@
 
 import { makeStyles } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
-import { Button, Col, Container, Row } from 'react-bootstrap';
-import { geocodeByAddress } from 'react-places-autocomplete';
+import { Button } from 'react-bootstrap';
 
-import PlacesAutocomplete from 'react-places-autocomplete';
-import axios from 'axios';
-
-import RoomIcon from '@material-ui/icons/Room';
 
 import copenhagen from './images/copenhagen.jpg';
 import stockholm from './images/stockholm.jpg';
@@ -41,7 +36,6 @@ function App() {
 
   const [bgImg, setBgImg] = useState(countriesArr[firstRdNum].bgImg);
   const [country, setCountry] = useState(countriesArr[firstRdNum].text);
-  const [coordinate, setCoordinate] = useState({ lng: '', lat: '' });
 
   useEffect(() => getBgImg(), [])
 
@@ -58,36 +52,11 @@ function App() {
     };
   }
 
-  const [timezoneId, setTimeZoneId] = useState('Europe/Helsinki');
-
-  const getTimeZone = (lng, lat) => {
-    const url = `https://maps.googleapis.com/maps/api/timezone/json?location=${lng},${lat}&timestamp=1331161200&key=AIzaSyBjJs2hbIhLaaO5mOt43DwhbVwUvgP1avs`;
-    const request = axios.get(url);
-    return request.then(response => response.data)
-  }
-
-
-
-
-  const handleSelect = selectedAddress => {
-    geocodeByAddress(selectedAddress)
-      .then(results => {
-        const lat = results[0].geometry.viewport.La.i;
-        const lng = results[0].geometry.viewport.Ua.i;
-        getTimeZone(lng, lat)
-          .then(data => setTimeZoneId(data.timeZoneId))
-          .catch(err => console.error(err));
-      })
-      .then(latLng => console.log('Success', latLng))
-      .catch(error => console.error('Error', error));
-  };
-
 
   return (
     <div className={classes.bgImg} style={{ backgroundImage: `url(${bgImg})`, }}>
 
       <Header />
-
 
       <div className={classes.container}>
         <div className='align-items-center justify-content-center' style={{ display: 'flex', padding: '10% 5% 3% 5%' }}>
@@ -99,14 +68,13 @@ function App() {
           <MyClock />
         </div>
 
-        <MyLocation
-          timezoneId={timezoneId}
-          handleSelect={handleSelect}
-        />
+        <MyLocation />
 
-        <MeetingLocation
 
-        />
+        <hr style={{ color: '#8c8c8c', fontWeight: 400, width: '95%', }} />
+
+
+        <MeetingLocation />
 
       </div>
 
@@ -122,8 +90,10 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: 'white',
     opacity: 0.9,
     borderRadius: '8%',
-    width: 350,
-    marginLeft: 100
+    width: '100%',
+    maxWidth: 350,
+    marginLeft: 100,
+    marginTop: 115
   },
 
   bgImg: {
