@@ -1,26 +1,27 @@
 import React from 'react';
 import logo from '../images/globuzzer logo.png';
-import { Col, Container, Image, Row } from 'react-bootstrap';
-import { Link, makeStyles } from '@material-ui/core';
+import { Container, Image } from 'react-bootstrap';
+import { makeStyles } from '@material-ui/core';
 
 const Header = () => {
     const classes = useStyles();
 
     return (
         <Container fluid className={classes.container}>
-            <Row style={{
+            <div style={{
                 height: 68, alignItems: 'center',
-                justifyContent: 'center'
+                justifyContent: 'space-around',
+                display: 'flex'
             }}>
-                <Col md={{ span: 2, offset: 2 }} >
-                    <Link href='https://globuzzer.com/' target='_blank'>
-                        <Image src={logo} fluid style={{ width: '100%' }} />
-                    </Link>
-                </Col>
-                <Col md={{ span: 1, offset: 7 }} className={classes.help}>
+                <div md={{ span: 2, offset: 2 }} >
+                    <a href='https://globuzzer.com/' target='_blank'>
+                        <Image src={logo} style={{width: 150, height: 20}} />
+                    </a>
+                </div>
+                <div md={{ span: 1, offset: 7 }} className={classes.help}>
                     Help
-                </Col>
-            </Row>
+                </div>
+            </div>
         </Container>
     )
 }

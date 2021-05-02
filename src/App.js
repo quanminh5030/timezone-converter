@@ -1,19 +1,18 @@
 import { Link, makeStyles } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { Button, Col, Row } from 'react-bootstrap';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import Header from './components/Header';
 import MyClock from './components/MyClock';
-
 import MyLocation from './components/MyLocation';
 import MeetingLocation from './components/MeetingLocation';
-
 import countries from './config/countriesConfig';
-import './App.css'
+
 
 function App() {
   const classes = useStyles();
-
+  const matches = useMediaQuery('(max-width:600px)');
   const countriesArr = countries;
 
   const getRandomNum = () => Math.floor(Math.random() * countriesArr.length)
@@ -46,7 +45,7 @@ function App() {
 
       <Header />
 
-      <div className={classes.container}>
+      <div className={classes.container} style={matches ? { margin: 'auto', marginTop: 10 } : { marginLeft: '10vw', marginTop: '15vh' }}>
         <div className='align-items-center justify-content-center' style={{ display: 'flex', padding: '10% 5% 3% 5%' }}>
 
           <p className='' style={{ fontFamily: 'Roboto', fontSize: 18, fontWeight: 'bold', color: '#cf4848', }}>
@@ -69,7 +68,7 @@ function App() {
           <Row style={{ marginTop: 10 }}>
             <Col md={8} xs={8}></Col>
             <Col md={1} xs={1}>
-              <i class="fa fa-calendar" aria-hidden="true" style={{ fontSize: 20 }}></i>
+              <i className="fa fa-calendar" aria-hidden="true" style={{ fontSize: 20 }}></i>
             </Col>
 
             <Col md={1} xs={1}>
@@ -98,6 +97,7 @@ function App() {
 
       </div>
 
+
       <div className='d-flex justify-content-center' style={{ position: 'fixed', bottom: 18, width: '100%' }}>
         <Link href={link} target='_blank'>
           <Button className={classes.button}>
@@ -116,8 +116,6 @@ const useStyles = makeStyles(theme => ({
     borderRadius: '8%',
     width: '100%',
     maxWidth: 350,
-    marginLeft: 100,
-    marginTop: 115
   },
 
   bgImg: {
@@ -151,7 +149,7 @@ const useStyles = makeStyles(theme => ({
       backgroundColor: '#cc4747',
       border: 'solid 1px white',
     },
-   
+
   }
 }))
 

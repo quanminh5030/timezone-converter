@@ -90,14 +90,13 @@ const Pickers = ({ localeId, timezone }) => {
   }
 
   return (
-    <div style={{ display: 'inline-block', backgroundColor: '#cc4141', padding: '0px 5px 0px 0px', color: 'white' }}>
+    <div style={{ display: 'inline-block', backgroundColor: '#cc4141', padding: '0px 5px 0px 0px', color: 'white', height: 35, borderBottomRightRadius: 11, borderBottomLeftRadius: 11 }}>
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <div style={{ float: 'left', boxSizing: 'border-box', width: '50%', }}>
+        <div style={{ float: 'left', boxSizing: 'border-box', width: '50%'}}>
           <ThemeProvider theme={datePickerTheme}>
             <KeyboardDatePicker
               autoOk
               disableToolbar
-
               variant="dialog"
               format="yyyy-MM-dd"
 
@@ -107,7 +106,10 @@ const Pickers = ({ localeId, timezone }) => {
               initialFocusedDate={moment().tz(timezone).format('yyyy-MM-dd')}
 
 
-              InputProps={{ className: classes.title }}
+              InputProps={{
+                className: classes.title,
+                disableUnderline: true,
+              }}
 
               onSubmitCapture={() => console.log('hello')}
               onAccept={(date => setSelectedDate(date))}
@@ -120,29 +122,8 @@ const Pickers = ({ localeId, timezone }) => {
 
               leftArrowIcon={<ArrowLeftIcon fontSize='small'
                 style={{ color: 'white', backgroundColor: 'black', borderRadius: '50%' }} />}
-
-
-              KeyboardButtonProps={{
-                "aria-label": "hello world",
-
-              }}
-
             />
           </ThemeProvider>
-
-          {/* <DatePicker
-                    className={classes.calendar}
-                        value={selectedDate}
-                        onChange={date => setSelectedDate(date)}
-                        calendarIcon={null}
-                        clearIcon={null}
-                        format='y-MM-dd'
-                        locale={localeId}
-                        showLeadingZeros={true}
-                        yearPlaceholder='yyyy'
-                        monthPlaceholder='mm'
-                        dayPlaceholder='dd'
-                    /> */}
 
         </div>
 
@@ -151,18 +132,22 @@ const Pickers = ({ localeId, timezone }) => {
         </div>
 
         <div style={{ float: 'right', width: '30%', padding: '0px 0px 0px 5px', boxSizing: 'border-box' }}>
-          {/* <TimePicker
-                        clearable
-                        initialFocusedDate={(new Date()).toLocaleString({ localeId }, { timeZone: timezone })}
-                        InputProps={{ className: classes.title }}
-                    /> */}
-
           <TextField
             className={classes.select}
             select
-            placeholder={moment(new Date()).format('hh:mm A')}
+            value={selectedDate}
             SelectProps={{
               native: true,
+            }}
+
+            InputProps={{
+              className: classes.title,
+              disableUnderline: true,
+            }}
+
+            inputProps={{
+              color: 'white',
+          
             }}
           >
             {hours.map((item, key) => (
@@ -185,9 +170,7 @@ const useStyles = makeStyles(theme => ({
     color: 'white'
   },
 
-  select: {
-    cursor: 'type'
-  }
+  
 }))
 
 export default Pickers

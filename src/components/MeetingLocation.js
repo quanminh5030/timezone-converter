@@ -39,7 +39,7 @@ const MeetingLocation = () => {
         <p style={{ fontSize: 14, color: '#8c8c8c', fontWeight: 400, fontFamily: 'Roboto', marginBottom: 5 }}>Meeting location time zone</p>
       </div>
 
-      <div style={{ border: '1px solid #e75152', borderRadius: 11, margin: '0 4%', width: '91%' }}>
+      <div style={{ border: '1px solid #e75152', borderRadius: 11, margin: '0 4%', width: '91%', height: 75 }}>
 
         <PlacesAutocomplete
           value={remoteAddress}
