@@ -1,0 +1,97 @@
+import { createMuiTheme, makeStyles } from "@material-ui/core";
+
+export const datePickerTheme = createMuiTheme({
+    overrides: {
+        MuiInputBase: {
+            root: {
+                paddingLeft: '5%'
+            }
+        },
+        MuiPickersDay: {
+            daySelected: {
+                backgroundColor: '#cd5e5e',
+                '&:hover': {
+                    backgroundColor: '#cd5e5e',
+                }
+            },
+            day: {
+                height: 'none'
+            }
+        },
+        MuiTypography: {
+            body1: {
+                fontWeight: 'bold',
+            },
+            caption: {
+                fontWeight: 'bold'
+            }
+        },
+        MuiPickersCalendarHeader: {
+            dayLabel: {
+                color: 'black'
+            }
+        },
+        MuiIconButton: {
+            root: {
+                borderRadius: 'none'
+            }
+        },
+        MuiSvgIcon: {
+            root: {
+                fontSize: 0
+            }
+        },
+        MuiSelect: {
+            select: {
+                cursor: 'text'
+            }
+        },
+    }
+})
+
+export const useStyles = makeStyles(theme => ({
+    title: {
+        color: 'white',
+    },
+    selectTime: {
+        width: 100,
+        color: 'white',
+    },
+    container: {
+        display: 'inline-block',
+        backgroundColor: '#cc4141',
+        padding: '0px 5px 0px 0px',
+        color: 'white',
+        height: 35,
+        borderBottomRightRadius: 9,
+        borderBottomLeftRadius: 9
+    },
+    icon: {
+        color: 'white',
+        backgroundColor: 'black',
+        borderRadius: '50%'
+    },
+    date: {
+        float: 'left',
+        boxSizing: 'border-box',
+        width: '50%'
+    },
+    week: {
+        float: 'left',
+        width: '20%',
+        padding: '1px 5px 0px 0px',
+        boxSizing: 'border-box',
+        fontSize: 17
+    },
+    time: {
+        float: 'right',
+        width: '30%',
+        padding: '0px 0px 0px 5px',
+        boxSizing: 'border-box'
+    },
+    timeOptions: {
+        color: 'black',
+        fontSize: 13,
+        marginLeft: 10
+    }
+}))

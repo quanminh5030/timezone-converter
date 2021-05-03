@@ -8,19 +8,13 @@ const Header = () => {
 
     return (
         <Container fluid className={classes.container}>
-            <div style={{
-                height: 68, alignItems: 'center',
-                justifyContent: 'space-around',
-                display: 'flex'
-            }}>
-                <div md={{ span: 2, offset: 2 }} >
-                    <a href='https://globuzzer.com/' target='_blank'>
-                        <Image src={logo} style={{width: 150, height: 20}} />
-                    </a>
-                </div>
-                <div md={{ span: 1, offset: 7 }} className={classes.help}>
-                    Help
-                </div>
+            <div>
+                <a href='https://globuzzer.com/' target='blank'>
+                    <Image src={logo} className={classes.logo} />
+                </a>
+            </div>
+            <div className={classes.help}>
+                Help
             </div>
         </Container>
     )
@@ -30,10 +24,10 @@ const useStyles = makeStyles(theme => ({
     container: {
         backgroundColor: '#333',
         opacity: 0.6,
-        overflow: 'hidden',
-        margin: 0,
-        padding: 0,
-        listStyleType: 'none',
+        height: 68, 
+        alignItems: 'center',
+        justifyContent: 'space-around',
+        display: 'flex'
     },
 
     help: {
@@ -42,6 +36,11 @@ const useStyles = makeStyles(theme => ({
         fontWeight: 'bold',
         color: '#ffffff'
     },
+
+    logo: {
+        width: 150, 
+        height: 20
+    }
 
 }))
 
