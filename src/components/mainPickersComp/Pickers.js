@@ -6,20 +6,29 @@ import {
 } from '@material-ui/pickers';
 import moment from 'moment';
 import 'moment-timezone';
-import { TextField, ThemeProvider } from '@material-ui/core';
+import { Button, TextField, ThemeProvider } from '@material-ui/core';
 import { DateTime } from 'luxon';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import ArrowLeftIcon from '@material-ui/icons/ArrowLeft';
 import { datePickerTheme, useStyles } from '../../styles/StylePicker'
 
+import DatePicker, { registerLocale } from 'react-datepicker';
+import '../../styles/calendar.css';
+import "react-datepicker/dist/react-datepicker.css";
+
+import en from 'date-fns/locale/en-GB';
+
+
+
 const Pickers = ({ localeId, timezone }) => {
   const classes = useStyles();
-  const [selectedDate, setSelectedDate] = useState(moment(new Date()).tz(timezone).format('yyyy-MM-DD'));
+  // const [selectedDate, setSelectedDate] = useState(moment(new Date()).tz(timezone));
+
+  const [selectedDate, setSelectedDate] = useState(new Date());
 
   const week = DateTime.fromJSDate(new Date(selectedDate)).weekNumber;
 
   const dateChange = date => {
-    // date !== 'Invalid Date' && setSelectedDate(date);
     console.log(date)
   }
 
@@ -33,45 +42,44 @@ const Pickers = ({ localeId, timezone }) => {
 
   return (
     <div className={classes.container}>
-      <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <div className={classes.date}>
-          <ThemeProvider theme={datePickerTheme}>
-            <KeyboardDatePicker
-              autoOk
-              disableToolbar
-              variant="dialog"
-              format="yyyy-MM-dd"
-              value={selectedDate}
-              onChange={dateChange}
-              id="date-picker-inline"
-              initialFocusedDate={moment().tz(timezone).format('yyyy-MM-dd')}
-              InputProps={{
-                className: classes.title,
-                disableUnderline: true,
-              }}
-              onAccept={(date => setSelectedDate(date))}
-              keyboardIcon={false}
-              cancelLabel=''
-              okLabel=''
 
-              rightArrowIcon={<ArrowRightIcon fontSize='small' className={classes.icon} />}
+      <div className={classes.date}>
+        <DatePicker
+          className={classes.input}
+          locale={en}
+          selected={selectedDate}
+          onChange={date => setSelectedDate(date)}
+          dateFormat='yyyy-MM-dd'
+          showWeekNumbers
+          placeholderText='yyyy-mm-dd'
+          weekLabel='WK'
+          renderCustomHeader={({ decreaseMonth, increaseMonth, date }) => (
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontWeight: 'bold', fontSize: '18px' }}>
+              <Button onClick={decreaseMonth} size='small'>
+                <ArrowLeftIcon className={classes.icon} />
+              </Button>
 
-              leftArrowIcon={<ArrowLeftIcon fontSize='small'
-                className={classes.icon} />}
-            />
-          </ThemeProvider>
+              <span>{moment(date).format('MMM YYYY')}</span>
 
-        </div>
+              <Button onClick={increaseMonth}>
+                <ArrowRightIcon className={classes.icon} />
+              </Button>
+            </div>
+          )}
 
-        <div className={classes.week}>
-          w. {week + 1}
-        </div>
 
-        <div className={classes.time}>
+        />
+      </div>
+
+      <div className={classes.week}>
+        w. {week + 1}
+      </div>
+
+      {/* <div className={classes.time}>
           <ThemeProvider theme={datePickerTheme}>
             <TextField
               select
-              value={selectedDate}
+              value={moment(selectedDate).format('hh:mm A')}
               SelectProps={{
                 native: true,
                 className: classes.selectTime,
@@ -86,12 +94,23 @@ const Pickers = ({ localeId, timezone }) => {
                 </option>
               ))}
             </TextField>
-
           </ThemeProvider>
+        </div> */}
 
-        </div>
+      <div className={classes.time}>
+        <DatePicker
+          className={classes.input}
+          selected={selectedDate}
+          onChange={date => setSelectedDate(date)}
+          timeCaption=''
+          showTimeSelect
+          showTimeSelectOnly
 
-      </MuiPickersUtilsProvider>
+          timeIntervals={60}
+          dateFormat='hh:mm aa'
+        />
+      </div>
+
 
     </div>
   )

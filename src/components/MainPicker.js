@@ -12,8 +12,8 @@ const MainPicker = () => {
     const classes = useStyles();
     const matches = useMediaQuery('(max-width:600px)');
 
-    const [yourAddress, setYourAddress] = useState('');
-    const [remoteAddress, setRemoteAddress] = useState('');
+
+
 
     const getTimeZone = (lng, lat) => {
         const url = `https://maps.googleapis.com/maps/api/timezone/json?location=${lng},${lat}&timestamp=1331161200&key=AIzaSyBjJs2hbIhLaaO5mOt43DwhbVwUvgP1avs`;
@@ -21,8 +21,8 @@ const MainPicker = () => {
         return request.then(response => response.data)
     }
 
-    const handleSelect = (selectedAddress, setTimeZoneId) => {
-        setYourAddress(selectedAddress)
+    const handleSelect = (selectedAddress, setTimeZoneId, setAddress) => {
+        setAddress(selectedAddress)
 
         geocodeByAddress(selectedAddress)
             .then(results => {
@@ -43,16 +43,12 @@ const MainPicker = () => {
             <HeaderPicker />
 
             <MyLocation
-                yourAddress={yourAddress}
-                setYourAddress={setYourAddress}
                 handleSelect={handleSelect}
             />
 
             <hr className={classes.divider} style={{ width: '95%', }} />
 
             <MeetingLocation
-                remoteAddress={remoteAddress}
-                setRemoteAddress={setRemoteAddress}
                 handleSelect={handleSelect}
             />
 

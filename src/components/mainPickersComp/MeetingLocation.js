@@ -4,9 +4,10 @@ import RoomIcon from '@material-ui/icons/Room';
 import Pickers from './Pickers';
 import { useStyles } from '../../styles/StyleMainInputPicker'
 
-const MeetingLocation = ({ remoteAddress, setRemoteAddress, handleSelect }) => {
+const MeetingLocation = ({ handleSelect }) => {
   const classes = useStyles();
   const [inputPlaceholder, setInputPlaceholder] = useState('Stockholm, Sweden, Globuzzer');
+  const [remoteAddress, setRemoteAddress] = useState('');
   const [timezoneId, setTimeZoneId] = useState('Europe/Stockholm');
 
   return (
@@ -19,7 +20,7 @@ const MeetingLocation = ({ remoteAddress, setRemoteAddress, handleSelect }) => {
         <PlacesAutocomplete
           value={remoteAddress}
           onChange={text => setRemoteAddress(text)}
-          onSelect={address => handleSelect(address, setTimeZoneId)}
+          onSelect={address => handleSelect(address, setTimeZoneId, setRemoteAddress)}
         >
           {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
             <div>

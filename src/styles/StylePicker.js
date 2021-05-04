@@ -69,7 +69,8 @@ export const useStyles = makeStyles(theme => ({
     icon: {
         color: 'white',
         backgroundColor: 'black',
-        borderRadius: '50%'
+        borderRadius: '50%',
+        fontSize: 16,
     },
     date: {
         float: 'left',
@@ -93,5 +94,22 @@ export const useStyles = makeStyles(theme => ({
         color: 'black',
         fontSize: 13,
         marginLeft: 10
+    },
+
+
+
+
+    input: {
+        color: 'white',
+        backgroundColor: 'transparent',
+        border: 0,
+        padding: '1% 5%',
+        fontSize: 17,
+       
+        
+    },
+
+    calendar: {
+        
     }
 }))

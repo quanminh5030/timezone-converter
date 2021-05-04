@@ -1,7 +1,5 @@
-import { Link, makeStyles } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
-
-
 
 import Header from './components/Header';
 import countries from './config/countriesConfig';

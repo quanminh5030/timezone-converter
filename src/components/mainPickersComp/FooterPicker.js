@@ -1,4 +1,4 @@
-import { Link, makeStyles } from '@material-ui/core';
+import {  makeStyles } from '@material-ui/core';
 import React from 'react'
 import { Col, Row } from 'react-bootstrap';
 
@@ -7,23 +7,21 @@ const FooterPicker = () => {
 
     return (
         <div>
-            <Row style={{ marginTop: 10 }}>
+            <Row style={{ marginTop: 8 }}>
                 <Col md={8} xs={8}></Col>
                 <Col md={1} xs={1}>
                     <i className="fa fa-calendar" aria-hidden="true" style={{ fontSize: 20 }}></i>
                 </Col>
 
-                <Col md={1} xs={1}>
-                    <Link href='#' className={classes.format} style={{ color: 'white', backgroundColor: '#cc4141', }}>
-                        12
-                    </Link>
-                </Col>
 
-                <Col md={1} xs={1} style={{ paddingLeft: 2, marginBottom: 15 }}>
-                    <Link href='#' className={classes.format} style={{ color: '#cc4141', backgroundColor: 'white', }}>
-                        24
-                    </Link>
-                </Col>
+                <div className={classes.format} style={{ color: 'white', backgroundColor: '#cc4141', marginLeft: 15 }}>
+                    12
+                    </div>
+
+                <div className={classes.format} style={{ color: '#cc4141', backgroundColor: 'white', }}>
+                    24
+                    </div>
+
             </Row>
         </div>
     )
@@ -42,7 +40,10 @@ const useStyles = makeStyles(theme => ({
         padding: 3,
         border: '1px solid white',
         borderRadius: 4,
-        fontSize: 10
+        fontSize: 10,
+        cursor: 'pointer',
+        marginBottom: 10,
+        marginTop: 5
     }
 }))
 
