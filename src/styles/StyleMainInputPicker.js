@@ -6,7 +6,8 @@ export const useStyles = makeStyles(theme => ({
         borderRadius: 11,
         margin: '0 4%',
         width: '91%',
-        height: 75
+        height: 75,
+        position: 'relative'
     },
 
     placeholder: {

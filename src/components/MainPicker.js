@@ -12,8 +12,7 @@ const MainPicker = () => {
     const classes = useStyles();
     const matches = useMediaQuery('(max-width:600px)');
 
-
-
+    const [timeFormat, setTimeFormat] = useState('hh:mm a')
 
     const getTimeZone = (lng, lat) => {
         const url = `https://maps.googleapis.com/maps/api/timezone/json?location=${lng},${lat}&timestamp=1331161200&key=AIzaSyBjJs2hbIhLaaO5mOt43DwhbVwUvgP1avs`;
@@ -44,17 +43,21 @@ const MainPicker = () => {
 
             <MyLocation
                 handleSelect={handleSelect}
+                timeFormat={timeFormat}
             />
 
             <hr className={classes.divider} style={{ width: '95%', }} />
 
             <MeetingLocation
                 handleSelect={handleSelect}
+                timeFormat={timeFormat}
             />
 
             <hr className={classes.divider} style={{ marginBottom: 0 }} />
 
-            <FooterPicker />
+            <FooterPicker
+                setTimeFormat={setTimeFormat}
+            />
 
         </div>
     )

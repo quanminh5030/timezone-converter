@@ -1,0 +1,14 @@
+.react-clock__second-hand__body {
+    background-color: black !important;
+    box-shadow: 0px 0px 7px #000 !important;
+}
+
+.react-clock__minute-hand__body {
+    background-color: #2F4F4F !important;
+    box-shadow: 0px 0px 4px #000 !important;
+}
+
+.react-clock__hand__body {
+    background: #708090;
+    box-shadow: 0px 0px 7px #000;
+}

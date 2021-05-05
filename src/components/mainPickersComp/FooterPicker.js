@@ -1,9 +1,21 @@
-import {  makeStyles } from '@material-ui/core';
-import React from 'react'
+import { makeStyles } from '@material-ui/core';
+import React, { useState } from 'react'
 import { Col, Row } from 'react-bootstrap';
 
-const FooterPicker = () => {
+const FooterPicker = ({setTimeFormat}) => {
     const classes = useStyles();
+
+    const [isTwelveFormat, setIsTwelveFormat] = useState(true);
+
+    const handleTwelveClick = () => {
+        setIsTwelveFormat(true);
+        setTimeFormat('hh:mm a');
+    }
+
+    const handleTwentyFourClick = () => {
+        setIsTwelveFormat(false)
+        setTimeFormat('HH:mm a');
+    }
 
     return (
         <div>
@@ -14,16 +26,26 @@ const FooterPicker = () => {
                 </Col>
 
 
-                <div className={classes.format} style={{ color: 'white', backgroundColor: '#cc4141', marginLeft: 15 }}>
+                <div
+                    className={classes.format}
+                    onClick={handleTwelveClick}
+                    style={isTwelveFormat ?
+                        { color: 'white', backgroundColor: '#cc4141', marginLeft: 15 } :
+                        { color: '#cc4141', backgroundColor: 'white', marginLeft: 15 }}>
                     12
                     </div>
 
-                <div className={classes.format} style={{ color: '#cc4141', backgroundColor: 'white', }}>
+                <div
+                    className={classes.format}
+                    onClick={handleTwentyFourClick}
+                    style={isTwelveFormat ?
+                        { color: '#cc4141', backgroundColor: 'white', } :
+                        { color: 'white', backgroundColor: '#cc4141', }}>
                     24
                     </div>
 
             </Row>
-        </div>
+        </div >
     )
 }
 

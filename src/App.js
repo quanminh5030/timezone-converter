@@ -19,7 +19,7 @@ function App() {
   const [country, setCountry] = useState(countriesArr[firstRdNum].text);
   const [link, setLink] = useState(countriesArr[firstRdNum].link);
 
-  useEffect(() => getBgImg, [bgImg])
+  useEffect(() => getBgImg, [])
 
   const getBgImg = () => {
     const interval = setInterval(
@@ -28,7 +28,7 @@ function App() {
         setBgImg(countriesArr[rdNum].bgImg)
         setCountry(countriesArr[rdNum].text)
         setLink(countriesArr[rdNum].link)
-      }, 10000
+      }, 3000
     );
     return () => {
       clearInterval(interval);

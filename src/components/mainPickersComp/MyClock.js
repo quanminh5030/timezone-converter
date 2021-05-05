@@ -2,6 +2,7 @@ import { makeStyles } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import Clock from 'react-clock';
 import 'react-clock/dist/Clock.css';
+import '../../styles/clock.css';
 import icon from '../../images/gb_logo.png';
 
 const MyClock = () => {
