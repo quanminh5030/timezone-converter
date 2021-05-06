@@ -3,9 +3,8 @@ import PlacesAutocomplete from 'react-places-autocomplete';
 import RoomIcon from '@material-ui/icons/Room';
 import Pickers from './Pickers';
 import { useStyles } from '../../styles/StyleMainInputPicker';
-import Autocomplete from '@material-ui/lab/Autocomplete';
 
-const MyLocation = ({ handleSelect, timeFormat }) => {
+const MyLocation = ({ handleSelect, timeFormat, selectedDate, setSelectedDate }) => {
   const classes = useStyles();
   const [inputPlaceholder, setInputPlaceholder] = useState('Helsinki');
   const [yourAddress, setYourAddress] = useState('');
@@ -39,15 +38,17 @@ const MyLocation = ({ handleSelect, timeFormat }) => {
                 <div>
                   {loading && <div>Loading...</div>}
                   {suggestions.map((suggestion, index) => {
+
                     const className = suggestion.active
                       ? 'suggestion-item--active'
                       : 'suggestion-item';
                     // inline style for demonstration purpose
                     const style = suggestion.active
-                      ? { backgroundColor: '#fafafa', cursor: 'default' }
+                      ? { backgroundColor: '#fafafa', cursor: 'default', }
                       : { backgroundColor: '#ffffff', cursor: 'pointer', };
                     return (
                       <div
+                        
                         key={index}
                         {...getSuggestionItemProps(suggestion, {
                           className,
@@ -67,9 +68,10 @@ const MyLocation = ({ handleSelect, timeFormat }) => {
         </div>
 
         <Pickers
-          localeId='sv-SE'
           timezone={timezoneId}
           timeFormat={timeFormat}
+          selectedDate={selectedDate}
+          setSelectedDate={setSelectedDate}
         />
 
       </div>

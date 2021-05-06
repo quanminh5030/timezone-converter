@@ -11,51 +11,29 @@ import DatePicker from 'react-datepicker';
 import '../../styles/calendar.css';
 import "react-datepicker/dist/react-datepicker.css";
 
-import en from 'date-fns/locale/en-GB';
 import { setHours, setMinutes } from 'date-fns';
+import en from 'date-fns/locale/en-US';
 
 
-const Pickers = ({ localeId, timezone, timeFormat }) => {
+const Pickers = ({ timezone, timeFormat, selectedDate, setSelectedDate }) => {
   const classes = useStyles();
-  // const [selectedDate, setSelectedDate] = useState(moment(new Date()).tz(timezone));
-
-  const [selectedDate, setSelectedDate] = useState(new Date());
 
   const week = DateTime.fromJSDate(new Date(selectedDate)).weekNumber;
 
-  const hours = [];
+  // const hours = [];
 
-  for (let hour = 0; hour < 24; hour++) {
-    hours.push(moment().tz(timezone).add(hour, 'hour').format('hh:mm a'));
+  // for (let hour = 0; hour < 24; hour++) {
+  //   hours.push(moment().tz(timezone).add(hour, 'hour').format('hh:mm a'));
+  // }
+
+
+  const timeArr = []
+
+  for (let index = 0; index < 24; index++) {
+    const time = setHours(setMinutes(selectedDate, selectedDate.getMinutes()), index);
+
+    timeArr.push(time);
   }
-
-
-  const timeArr = [
-    setHours(setMinutes(selectedDate, selectedDate.getMinutes()), 0),
-    setHours(setMinutes(selectedDate, selectedDate.getMinutes()), 1),
-    setHours(setMinutes(selectedDate, selectedDate.getMinutes()), 2),
-    setHours(setMinutes(selectedDate, selectedDate.getMinutes()), 3),
-    setHours(setMinutes(selectedDate, selectedDate.getMinutes()), 4),
-    setHours(setMinutes(selectedDate, selectedDate.getMinutes()), 5),
-    setHours(setMinutes(selectedDate, selectedDate.getMinutes()), 6),
-    setHours(setMinutes(selectedDate, selectedDate.getMinutes()), 7),
-    setHours(setMinutes(selectedDate, selectedDate.getMinutes()), 8),
-    setHours(setMinutes(selectedDate, selectedDate.getMinutes()), 9),
-    setHours(setMinutes(selectedDate, selectedDate.getMinutes()), 10),
-    setHours(setMinutes(selectedDate, selectedDate.getMinutes()), 11),
-    setHours(setMinutes(selectedDate, selectedDate.getMinutes()), 12),
-    setHours(setMinutes(selectedDate, selectedDate.getMinutes()), 13),
-    setHours(setMinutes(selectedDate, selectedDate.getMinutes()), 14),
-    setHours(setMinutes(selectedDate, selectedDate.getMinutes()), 15),
-    setHours(setMinutes(selectedDate, selectedDate.getMinutes()), 16),
-    setHours(setMinutes(selectedDate, selectedDate.getMinutes()), 17),
-    setHours(setMinutes(selectedDate, selectedDate.getMinutes()), 18),
-    setHours(setMinutes(selectedDate, selectedDate.getMinutes()), 19),
-    setHours(setMinutes(selectedDate, selectedDate.getMinutes()), 20),
-    setHours(setMinutes(selectedDate, selectedDate.getMinutes()), 21),
-    setHours(setMinutes(selectedDate, selectedDate.getMinutes()), 22),
-    setHours(setMinutes(selectedDate, selectedDate.getMinutes()), 23),
-  ]
 
   return (
     <div className={classes.container}>
@@ -63,7 +41,6 @@ const Pickers = ({ localeId, timezone, timeFormat }) => {
       <div className={classes.date}>
         <DatePicker
           className={classes.input}
-          locale={en}
           selected={selectedDate}
           onChange={date => setSelectedDate(date)}
           dateFormat='yyyy-MM-dd'
@@ -120,7 +97,9 @@ const Pickers = ({ localeId, timezone, timeFormat }) => {
         <DatePicker
           className={classes.input}
 
-          selected={moment(new Date(selectedDate)).tz(timezone).subtract(3, 'hour')._d}
+          selected={moment(selectedDate).tz(timezone).subtract(3, 'hour')._d}
+
+          locale={en}
 
           timeFormat={timeFormat}
           dateFormat={timeFormat}
@@ -138,6 +117,14 @@ const Pickers = ({ localeId, timezone, timeFormat }) => {
 
         />
       </div>
+{/* 
+      <Button
+        onClick={() => console.log(new Date(selectedDate).toLocaleString("en-US", {timeZone: timezone}))}
+      >Test</Button>
+
+    <Button
+        onClick={() => console.log(new Date())}
+      >Test2</Button> */}
 
 
     </div>

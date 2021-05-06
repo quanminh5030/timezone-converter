@@ -45,7 +45,7 @@ const FooterPicker = ({setTimeFormat}) => {
                     </div>
 
             </Row>
-        </div >
+        </div>
     )
 }
 

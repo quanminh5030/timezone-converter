@@ -28,7 +28,7 @@ function App() {
         setBgImg(countriesArr[rdNum].bgImg)
         setCountry(countriesArr[rdNum].text)
         setLink(countriesArr[rdNum].link)
-      }, 3000
+      }, 1000
     );
     return () => {
       clearInterval(interval);

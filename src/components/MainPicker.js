@@ -12,6 +12,9 @@ const MainPicker = () => {
     const classes = useStyles();
     const matches = useMediaQuery('(max-width:600px)');
 
+
+    const [selectedDate, setSelectedDate] = useState(new Date());
+
     const [timeFormat, setTimeFormat] = useState('hh:mm a')
 
     const getTimeZone = (lng, lat) => {
@@ -44,6 +47,8 @@ const MainPicker = () => {
             <MyLocation
                 handleSelect={handleSelect}
                 timeFormat={timeFormat}
+                selectedDate={selectedDate}
+                setSelectedDate={setSelectedDate}
             />
 
             <hr className={classes.divider} style={{ width: '95%', }} />
@@ -51,6 +56,8 @@ const MainPicker = () => {
             <MeetingLocation
                 handleSelect={handleSelect}
                 timeFormat={timeFormat}
+                selectedDate={selectedDate}
+                setSelectedDate={setSelectedDate}
             />
 
             <hr className={classes.divider} style={{ marginBottom: 0 }} />

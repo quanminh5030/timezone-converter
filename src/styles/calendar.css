@@ -74,10 +74,7 @@
 }
 
 /* time picker */
-.react-datepicker__time-container {
-  height: 0 !important;
-  overflow-y: unset !important;
-}
+
 
 .react-datepicker__header--time {
   padding-bottom: 0px !important;
@@ -93,10 +90,16 @@
 }
 
 .react-datepicker__time-list-item--selected {
-  background-color: #b6acac !important;
+  background-color: #e3dfd3 !important;
   color: black !important;
+  border: 1px solid gray;
 }
 
 .react-datepicker__time-list {
   height: calc(150px + (1.7rem / 2)) !important; 
+  
+}
+
+::-webkit-scrollbar {
+  width: 0;  
 }
