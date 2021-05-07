@@ -23,7 +23,7 @@ const MeetingLocation = ({ handleSelect, timeFormat, selectedDate, setSelectedDa
           onSelect={address => handleSelect(address, setTimeZoneId, setRemoteAddress)}
         >
           {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-            <div>
+            <div style={{ position: 'relative' }}>
               <input
                 {...getInputProps({
                   placeholder: inputPlaceholder,
@@ -32,8 +32,14 @@ const MeetingLocation = ({ handleSelect, timeFormat, selectedDate, setSelectedDa
                 className={classes.placeholder}
                 onClick={() => setInputPlaceholder('Remote location ...')}
               />
-              <div className="autocomplete-dropdown-container">
-                {loading && <div>Loading...</div>}
+              <div className="autocomplete-dropdown-container"
+                style={{
+                  position: 'absolute',
+                  width: '100%',
+                  top: '40px',
+                  zIndex: 1000,
+                }}>
+                {loading && <div  style={{ backgroundColor: 'white' }}>Loading...</div>}
                 {suggestions.map((suggestion, index) => {
                   const className = suggestion.active
                     ? 'suggestion-item--active'

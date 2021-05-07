@@ -64,12 +64,10 @@ const Pickers = ({ timezone, timeFormat, selectedDate, setSelectedDate }) => {
         <DatePicker
           className={classes.input}
 
-          selected={selectedDate}
+          selected={moment(selectedDate).tz(timezone).subtract(3, 'hour')._d}
 
           timeFormat={timeFormat}
           dateFormat={timeFormat}
-
-          locale={en}
 
           onChange={date => setSelectedDate(date)}
 
@@ -84,15 +82,6 @@ const Pickers = ({ timezone, timeFormat, selectedDate, setSelectedDate }) => {
           injectTimes={timeArr}
         />
       </div>
-      
-      {/* <Button
-        onClick={() => console.log((new Date(selectedDate).toLocaleString("en-GB", {timeZone: timezone})))}
-      >Test</Button>
-
-    <Button
-        onClick={() => console.log(moment(selectedDate).tz(timezone).toString())}
-      >Test2</Button> */}
-
 
     </div>
   )
