@@ -4,10 +4,10 @@ import RoomIcon from '@material-ui/icons/Room';
 import Pickers from './Pickers';
 import { useStyles } from '../../styles/StyleMainInputPicker';
 
-const MyLocation = ({ handleSelect, timeFormat, selectedDate, setSelectedDate }) => {
+const MyLocation = ({ handleSelect, timeFormat, selectedDate, setSelectedDate, yourAddress, setYourAddress }) => {
   const classes = useStyles();
   const [inputPlaceholder, setInputPlaceholder] = useState('Helsinki');
-  const [yourAddress, setYourAddress] = useState('');
+  
   const [timezoneId, setTimeZoneId] = useState('Europe/Helsinki');
 
   return (

@@ -3,7 +3,7 @@ import logo from '../images/globuzzer logo.png';
 import { Container, Image } from 'react-bootstrap';
 import { makeStyles } from '@material-ui/core';
 
-const Header = () => {
+const Header = ({weather}) => {
     const classes = useStyles();
 
     return (
@@ -14,7 +14,8 @@ const Header = () => {
                 </a>
             </div>
             <div className={classes.help}>
-                Help
+                <img src={weather.img} alt='weather icon' style={{paddingRight: 10,}} />
+                <span>{weather.temp}℃</span>
             </div>
         </Container>
     )

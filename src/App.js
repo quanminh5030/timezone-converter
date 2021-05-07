@@ -15,9 +15,13 @@ function App() {
 
   const firstRdNum = getRandomNum();
 
-  const [bgImg, setBgImg] = useState(countriesArr[firstRdNum].bgImg);
-  const [country, setCountry] = useState(countriesArr[firstRdNum].text);
-  const [link, setLink] = useState(countriesArr[firstRdNum].link);
+  const [country, setCountry] = useState({
+    countryName: countriesArr[firstRdNum].text,
+    bgImg: countriesArr[firstRdNum].bgImg,
+    visitLink: countriesArr[firstRdNum].link
+  });
+
+  const [weather, setWeather] = useState({ temp: '', img: '' });
 
   useEffect(() => getBgImg, [])
 
@@ -25,9 +29,12 @@ function App() {
     const interval = setInterval(
       () => {
         const rdNum = getRandomNum();
-        setBgImg(countriesArr[rdNum].bgImg)
-        setCountry(countriesArr[rdNum].text)
-        setLink(countriesArr[rdNum].link)
+
+        setCountry({
+          countryName: countriesArr[rdNum].text,
+          bgImg: countriesArr[rdNum].bgImg,
+          visitLink: countriesArr[rdNum].link
+        })
       }, 1000
     );
     return () => {
@@ -35,17 +42,16 @@ function App() {
     };
   }
 
-
   return (
-    <div className={classes.bgImg} style={{ backgroundImage: `url(${bgImg})`, }}>
+    <div className={classes.bgImg} style={{ backgroundImage: `url(${country.bgImg})`, }}>
 
-      <Header />
+      <Header weather={weather} />
 
-      <MainPicker />
+      <MainPicker setWeather={setWeather} />
 
       <VisitButton
-        link={link}
-        country={country}
+        link={country.visitLink}
+        country={country.countryName}
       />
 
     </div>

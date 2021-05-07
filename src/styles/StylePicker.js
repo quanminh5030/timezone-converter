@@ -1,53 +1,4 @@
-import { createMuiTheme, makeStyles } from "@material-ui/core";
-
-// export const datePickerTheme = createMuiTheme({
-//     overrides: {
-//         MuiInputBase: {
-//             root: {
-//                 paddingLeft: '5%'
-//             }
-//         },
-//         MuiPickersDay: {
-//             daySelected: {
-//                 backgroundColor: '#cd5e5e',
-//                 '&:hover': {
-//                     backgroundColor: '#cd5e5e',
-//                 }
-//             },
-//             day: {
-//                 height: 'none'
-//             }
-//         },
-//         MuiTypography: {
-//             body1: {
-//                 fontWeight: 'bold',
-//             },
-//             caption: {
-//                 fontWeight: 'bold'
-//             }
-//         },
-//         MuiPickersCalendarHeader: {
-//             dayLabel: {
-//                 color: 'black'
-//             }
-//         },
-//         MuiIconButton: {
-//             root: {
-//                 borderRadius: 'none'
-//             }
-//         },
-//         MuiSvgIcon: {
-//             root: {
-//                 fontSize: 0
-//             }
-//         },
-//         MuiSelect: {
-//             select: {
-//                 cursor: 'text'
-//             }
-//         },
-//     }
-// })
+import { makeStyles } from "@material-ui/core";
 
 export const useStyles = makeStyles(theme => ({
     title: {
@@ -65,7 +16,7 @@ export const useStyles = makeStyles(theme => ({
         height: 35,
         borderBottomRightRadius: 9,
         borderBottomLeftRadius: 9,
-      
+
     },
     icon: {
         color: 'white',

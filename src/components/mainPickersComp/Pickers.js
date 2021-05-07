@@ -1,31 +1,23 @@
-import React, { useState } from 'react';
+import React from 'react';
 import moment from 'moment';
 import 'moment-timezone';
-import { Button, TextField, ThemeProvider } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import { DateTime } from 'luxon';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import ArrowLeftIcon from '@material-ui/icons/ArrowLeft';
-import { datePickerTheme, useStyles } from '../../styles/StylePicker'
-
+import { useStyles } from '../../styles/StylePicker'
 import DatePicker from 'react-datepicker';
 import '../../styles/calendar.css';
 import "react-datepicker/dist/react-datepicker.css";
 
 import { setHours, setMinutes } from 'date-fns';
-import en from 'date-fns/locale/en-US';
+import en from 'date-fns/locale/en-GB';
 
 
 const Pickers = ({ timezone, timeFormat, selectedDate, setSelectedDate }) => {
   const classes = useStyles();
 
   const week = DateTime.fromJSDate(new Date(selectedDate)).weekNumber;
-
-  // const hours = [];
-
-  // for (let hour = 0; hour < 24; hour++) {
-  //   hours.push(moment().tz(timezone).add(hour, 'hour').format('hh:mm a'));
-  // }
-
 
   const timeArr = []
 
@@ -41,6 +33,7 @@ const Pickers = ({ timezone, timeFormat, selectedDate, setSelectedDate }) => {
       <div className={classes.date}>
         <DatePicker
           className={classes.input}
+          locale={en}
           selected={selectedDate}
           onChange={date => setSelectedDate(date)}
           dateFormat='yyyy-MM-dd'
@@ -60,49 +53,24 @@ const Pickers = ({ timezone, timeFormat, selectedDate, setSelectedDate }) => {
               </Button>
             </div>
           )}
-
-
         />
       </div>
 
       <div className={classes.week}>
-        w. {week + 1}
+        w. {week}
       </div>
-
-
-      {/* <div className={classes.time}>
-          <ThemeProvider theme={datePickerTheme}>
-            <TextField
-              select
-              value={moment(selectedDate).format('hh:mm A')}
-              SelectProps={{
-                native: true,
-                className: classes.selectTime,
-              }}
-              InputProps={{
-                disableUnderline: true,
-              }}
-            >
-              {hours.map((item, key) => (
-                <option key={key} className={classes.timeOptions}>
-                  {item}
-                </option>
-              ))}
-            </TextField>
-          </ThemeProvider>
-        </div> */}
-
 
       <div className={classes.time}>
         <DatePicker
           className={classes.input}
 
-          selected={moment(selectedDate).tz(timezone).subtract(3, 'hour')._d}
-
-          locale={en}
+          selected={selectedDate}
 
           timeFormat={timeFormat}
           dateFormat={timeFormat}
+
+          locale={en}
+
           onChange={date => setSelectedDate(date)}
 
           showTimeSelect
@@ -114,16 +82,15 @@ const Pickers = ({ timezone, timeFormat, selectedDate, setSelectedDate }) => {
           includeTimes={timeArr}
 
           injectTimes={timeArr}
-
         />
       </div>
-{/* 
-      <Button
-        onClick={() => console.log(new Date(selectedDate).toLocaleString("en-US", {timeZone: timezone}))}
+      
+      {/* <Button
+        onClick={() => console.log((new Date(selectedDate).toLocaleString("en-GB", {timeZone: timezone})))}
       >Test</Button>
 
     <Button
-        onClick={() => console.log(new Date())}
+        onClick={() => console.log(moment(selectedDate).tz(timezone).toString())}
       >Test2</Button> */}
 
 
