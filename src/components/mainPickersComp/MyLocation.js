@@ -7,7 +7,7 @@ import { useStyles } from '../../styles/StyleMainInputPicker';
 const MyLocation = ({ handleSelect, timeFormat, selectedDate, setSelectedDate, yourAddress, setYourAddress }) => {
   const classes = useStyles();
   const [inputPlaceholder, setInputPlaceholder] = useState('Helsinki');
-  
+
   const [timezoneId, setTimeZoneId] = useState('Europe/Helsinki');
 
   return (
@@ -24,7 +24,7 @@ const MyLocation = ({ handleSelect, timeFormat, selectedDate, setSelectedDate, y
             onSelect={address => handleSelect(address, setTimeZoneId, setYourAddress)}
           >
             {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-              <div>
+              <div style={{ position: 'relative' }}>
                 <input
                   {...getInputProps({
                     placeholder: inputPlaceholder,
@@ -35,8 +35,13 @@ const MyLocation = ({ handleSelect, timeFormat, selectedDate, setSelectedDate, y
                     setInputPlaceholder('Your location ...')
                   }}
                 />
-                <div>
-                  {loading && <div>Loading...</div>}
+                <div style={{
+                  position: 'absolute',
+                  width: '100%',
+                  top: '40px',
+                  zIndex: 1000,
+                }}>
+                  {loading && <div style={{ backgroundColor: 'white' }}>Loading...</div>}
                   {suggestions.map((suggestion, index) => {
 
                     const className = suggestion.active
@@ -48,7 +53,7 @@ const MyLocation = ({ handleSelect, timeFormat, selectedDate, setSelectedDate, y
                       : { backgroundColor: '#ffffff', cursor: 'pointer', };
                     return (
                       <div
-                        
+
                         key={index}
                         {...getSuggestionItemProps(suggestion, {
                           className,
