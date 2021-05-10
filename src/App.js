@@ -5,6 +5,7 @@ import Header from './components/Header';
 import countries from './config/countriesConfig';
 import MainPicker from './components/MainPicker';
 import VisitButton from './components/VisitButton';
+import moment from 'moment';
 
 function App() {
   const classes = useStyles();
@@ -23,24 +24,18 @@ function App() {
 
   const [weather, setWeather] = useState({ temp: '', img: '' });
 
-  useEffect(() => getBgImg, [])
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const rdNum = getRandomNum()
 
-  const getBgImg = () => {
-    const interval = setInterval(
-      () => {
-        const rdNum = getRandomNum();
-
-        setCountry({
-          countryName: countriesArr[rdNum].text,
-          bgImg: countriesArr[rdNum].bgImg,
-          visitLink: countriesArr[rdNum].link
-        })
-      }, 1000
-    );
-    return () => {
-      clearInterval(interval);
-    };
-  }
+      setCountry({
+        countryName: countriesArr[rdNum].text,
+        bgImg: countriesArr[rdNum].bgImg,
+        visitLink: countriesArr[rdNum].link
+      })
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div className={classes.bgImg} style={{ backgroundImage: `url(${country.bgImg})`, }}>

@@ -39,7 +39,7 @@ const MeetingLocation = ({ handleSelect, timeFormat, selectedDate, setSelectedDa
                   top: '40px',
                   zIndex: 1000,
                 }}>
-                {loading && <div  style={{ backgroundColor: 'white' }}>Loading...</div>}
+                {loading && <div style={{ backgroundColor: 'white' }}>Loading...</div>}
                 {suggestions.map((suggestion, index) => {
                   const className = suggestion.active
                     ? 'suggestion-item--active'

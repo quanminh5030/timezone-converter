@@ -27,6 +27,21 @@ const Pickers = ({ timezone, timeFormat, selectedDate, setSelectedDate }) => {
     timeArr.push(time);
   }
 
+  const handleDateChange = time => {
+    // const timeUTC = new Date(DateTime.fromJSDate(time).toUTC().toISO().slice(0, 23))
+
+    // console.log('utc', timeUTC);
+    
+    // console.log('timezone', new Date(DateTime.fromJSDate(selectedDate).setZone(timezone).toISO().slice(0, 23)))
+
+    // setSelectedDate(timeUTC)
+
+    const localTime = moment.tz(time, timezone)._i;
+    setSelectedDate(localTime)
+    console.log('local time', localTime)
+    console.log(timezone)
+  }
+
   return (
     <div className={classes.container}>
 
@@ -64,12 +79,12 @@ const Pickers = ({ timezone, timeFormat, selectedDate, setSelectedDate }) => {
         <DatePicker
           className={classes.input}
 
-          selected={moment(selectedDate).tz(timezone).subtract(3, 'hour')._d}
+          selected={new Date(DateTime.fromJSDate(selectedDate).setZone(timezone).toISO().slice(0, 23))}
 
           timeFormat={timeFormat}
           dateFormat={timeFormat}
 
-          onChange={date => setSelectedDate(date)}
+          onChange={handleDateChange}
 
           showTimeSelect
           showTimeSelectOnly
