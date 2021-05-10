@@ -5,7 +5,6 @@ import Header from './components/Header';
 import countries from './config/countriesConfig';
 import MainPicker from './components/MainPicker';
 import VisitButton from './components/VisitButton';
-import moment from 'moment';
 
 function App() {
   const classes = useStyles();
