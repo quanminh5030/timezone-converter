@@ -22,24 +22,22 @@ const Pickers = ({ timezone, timeFormat, selectedDate, setSelectedDate }) => {
   const timeArr = []
 
   for (let index = 0; index < 24; index++) {
-    const time = setHours(setMinutes(selectedDate, selectedDate.getMinutes()), index);
 
-    timeArr.push(time);
+    if (selectedDate) {
+      const time = setHours(setMinutes(selectedDate, selectedDate.getMinutes()), index);
+
+      timeArr.push(time);
+    }
+
+
   }
 
   const handleDateChange = time => {
-    // const timeUTC = new Date(DateTime.fromJSDate(time).toUTC().toISO().slice(0, 23))
-
-    // console.log('utc', timeUTC);
-    
-    // console.log('timezone', new Date(DateTime.fromJSDate(selectedDate).setZone(timezone).toISO().slice(0, 23)))
-
-    // setSelectedDate(timeUTC)
-
-    const localTime = moment.tz(time, timezone)._i;
-    setSelectedDate(localTime)
-    console.log('local time', localTime)
+    console.log(time)
     console.log(timezone)
+    setSelectedDate(time)
+    // console.log('local time', localTime)
+    // console.log(timezone)
   }
 
   return (
@@ -79,13 +77,13 @@ const Pickers = ({ timezone, timeFormat, selectedDate, setSelectedDate }) => {
         <DatePicker
           className={classes.input}
 
-          selected={new Date(DateTime.fromJSDate(selectedDate).setZone(timezone).toISO().slice(0, 23))}
-
+          selected={selectedDate && new Date(DateTime.fromJSDate(selectedDate).setZone(timezone).toISO().slice(0, 23))}
           timeFormat={timeFormat}
           dateFormat={timeFormat}
 
           onChange={handleDateChange}
 
+          placeholderText='hh:mm'
           showTimeSelect
           showTimeSelectOnly
           timeCaption=''

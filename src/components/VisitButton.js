@@ -5,13 +5,16 @@ import { Button} from 'react-bootstrap';
 const VisitButton = ({link, country}) => {
     const classes = useStyles();
 
+   
+
     return (
-        <div className='d-flex justify-content-center' style={{ position: 'fixed', bottom: 18, width: '100%' }}>
+        <div className='d-flex justify-content-center' style={{ position: 'absolute', bottom: 18, width: '100%' }}>
             <Link href={link} target='_blank'>
                 <Button className={classes.button}>
                     Discover {country}
                 </Button>
             </Link>
+
         </div>
     )
 }

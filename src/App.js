@@ -32,7 +32,7 @@ function App() {
         bgImg: countriesArr[rdNum].bgImg,
         visitLink: countriesArr[rdNum].link
       })
-    }, 5000);
+    }, 10000);
     return () => clearInterval(interval);
   }, []);
 

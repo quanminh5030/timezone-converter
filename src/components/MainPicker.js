@@ -18,6 +18,8 @@ const MainPicker = ({ setWeather }) => {
 
   const [yourAddress, setYourAddress] = useState('');
 
+  const [timezoneId, setTimeZoneId] = useState('Europe/Helsinki');
+
   useEffect(() => {
     countryServices.getWeather(60.2978389, 25.2544849)
       .then(data => {
@@ -71,6 +73,8 @@ const MainPicker = ({ setWeather }) => {
         setSelectedDate={setSelectedDate}
         yourAddress={yourAddress}
         setYourAddress={setYourAddress}
+        timezoneId={timezoneId}
+        setTimeZoneId={setTimeZoneId}
       />
 
       <hr className={classes.divider} style={{ width: '95%', }} />
@@ -86,6 +90,8 @@ const MainPicker = ({ setWeather }) => {
 
       <FooterPicker
         setTimeFormat={setTimeFormat}
+        date={selectedDate}
+        timezone={timezoneId}
       />
 
     </div>
