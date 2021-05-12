@@ -1,13 +1,6 @@
 import { makeStyles } from "@material-ui/core";
 
 export const useStyles = makeStyles(theme => ({
-    title: {
-        color: 'white',
-    },
-    selectTime: {
-        width: 100,
-        color: 'white',
-    },
     container: {
         display: 'inline-block',
         backgroundColor: '#cc4141',
@@ -42,14 +35,6 @@ export const useStyles = makeStyles(theme => ({
         padding: '0px 0px 0px 5px',
         boxSizing: 'border-box'
     },
-    timeOptions: {
-        color: 'black',
-        fontSize: 13,
-        marginLeft: 10
-    },
-
-
-
 
     input: {
         color: 'white',
@@ -57,9 +42,15 @@ export const useStyles = makeStyles(theme => ({
         border: 0,
         padding: '1% 5%',
         fontSize: 17,
+        width: 152
     },
 
-    calendar: {
-
+    customHeader: {
+        display: 'flex', 
+        justifyContent: 'space-between', 
+        alignItems: 'center', 
+        fontWeight: 'bold', 
+        fontSize: '18px' 
     }
+
 }))

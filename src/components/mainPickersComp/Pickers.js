@@ -17,27 +17,23 @@ import en from 'date-fns/locale/en-GB';
 const Pickers = ({ timezone, timeFormat, selectedDate, setSelectedDate }) => {
   const classes = useStyles();
 
+  //get week number
   const week = DateTime.fromJSDate(new Date(selectedDate)).weekNumber;
 
+  //create time pickers options
   const timeArr = []
-
   for (let index = 0; index < 24; index++) {
-
     if (selectedDate) {
       const time = setHours(setMinutes(selectedDate, selectedDate.getMinutes()), index);
-
       timeArr.push(time);
     }
-
-
   }
 
+  //when user select time
   const handleDateChange = time => {
-    console.log(time)
+    console.log(time);
     console.log(timezone)
     setSelectedDate(time)
-    // console.log('local time', localTime)
-    // console.log(timezone)
   }
 
   return (
@@ -47,14 +43,14 @@ const Pickers = ({ timezone, timeFormat, selectedDate, setSelectedDate }) => {
         <DatePicker
           className={classes.input}
           locale={en}
-          selected={selectedDate}
+          selected={selectedDate && new Date(DateTime.fromJSDate(selectedDate).setZone(timezone).toISO().slice(0, 23))}
           onChange={date => setSelectedDate(date)}
           dateFormat='yyyy-MM-dd'
           showWeekNumbers
           placeholderText='yyyy-mm-dd'
           weekLabel='WK'
           renderCustomHeader={({ decreaseMonth, increaseMonth, date }) => (
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontWeight: 'bold', fontSize: '18px' }}>
+            <div className={classes.customHeader}>
               <Button onClick={decreaseMonth} size='small'>
                 <ArrowLeftIcon className={classes.icon} />
               </Button>
