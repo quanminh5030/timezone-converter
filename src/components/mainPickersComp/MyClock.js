@@ -39,9 +39,8 @@ const useStyles = makeStyles(theme => ({
     clock: {
         backgroundImage: `url(${icon})`,
         backgroundSize: 'cover',
-        opacity: 0.8,
         borderRadius: 106,
-        border: '2px solid #172839',
+        border: '1px solid #172839',
         marginLeft: 10
     }
 }))

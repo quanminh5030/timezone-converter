@@ -32,8 +32,8 @@ const FooterPicker = ({ setTimeFormat, date, timezone }) => {
   return (
     <div>
       <Row style={{ marginTop: 8 }}>
-        <Col md={8} xs={8}></Col>
-        <Col md={1} xs={1}>
+        <Col md={{span: 6, offset: 1}} xs={7}></Col>
+        <Col md={1} xs={1} style={{marginLeft: 12}}>
           <i className="fa fa-calendar" aria-hidden="true" style={{ fontSize: 20, cursor: 'pointer' }} onClick={handleOpen}></i>
 
           <AddCalendar
@@ -80,13 +80,13 @@ const useStyles = makeStyles(theme => ({
   },
 
   format: {
-    padding: 3,
+    padding: '2px 3px 3px 3px',
     border: '1px solid white',
     borderRadius: 4,
     fontSize: 10,
     cursor: 'pointer',
-    marginBottom: 10,
-    marginTop: 5
+    margin: '3px 0 10px',
+    height: 21
   }
 }))
 

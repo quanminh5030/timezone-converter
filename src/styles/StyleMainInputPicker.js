@@ -7,7 +7,8 @@ export const useStyles = makeStyles(theme => ({
         margin: '0 4%',
         width: '91%',
         height: 75,
-        position: 'relative'
+        position: 'relative',
+        opacity: 1
     },
 
     placeholder: {
@@ -19,6 +20,7 @@ export const useStyles = makeStyles(theme => ({
         color: '#797979',
         fontWeight: 'bold',
         border: 'none',
+        outline: 'none'
     },
 
     title: {
@@ -30,7 +32,10 @@ export const useStyles = makeStyles(theme => ({
     },
 
     icon: {
-        fontSize: 15,
-        margin: '0 6 0 4'
+        fontSize: 17,
+        marginRight: 10,
+        marginBottom: 4
     }
+
+    
 }))

@@ -5,7 +5,7 @@ import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import { DateTime } from 'luxon';
 import moment from 'moment';
-import {googleCalendarAPI} from '../../config/keysConfig';
+import { googleCalendarAPI } from '../../config/keysConfig';
 
 const AddCalendar = ({ open, handleClose, date, timezone }) => {
     const [eventName, setEventName] = useState('');
@@ -70,11 +70,8 @@ const AddCalendar = ({ open, handleClose, date, timezone }) => {
             fullWidth={true}
             maxWidth='sm'
         >
-            <DialogTitle style={{ backgroundColor: '#1E1D21', color: 'white', padding: '20px 16px' }}>
-
-                {/* <h2 style={{ fontWeight: 'bold', fontSize: 28 }}>Select your Calendar</h2> */}
-            SELECT YOUR CALENDAR
-
+            <DialogTitle disableTypography style={{ backgroundColor: '#1E1D21', color: 'white', padding: '20px 16px' }}>
+                <h2> Select your Calendar</h2>
             </DialogTitle>
             <DialogContent style={{ backgroundColor: '#c3c2c4', color: 'white' }}>
 

@@ -31,9 +31,25 @@ const Pickers = ({ timezone, timeFormat, selectedDate, setSelectedDate }) => {
 
   //when user select time
   const handleDateChange = time => {
-    console.log(time);
-    console.log(timezone)
+    console.log(time)
+
+    const timeLocal = new Date(DateTime.fromJSDate(time).setZone(timezone).toISO().slice(0, 23));
+
+    console.log(timeLocal)
+
     setSelectedDate(time)
+  }
+
+
+  const handleTimeInputClick = () => {
+    console.log(new Date(DateTime.fromJSDate(selectedDate).setZone(timezone).toISO().slice(0, 23)))
+
+    // for (let index = 0; index < 24; index++) {
+    //   if (selectedDate) {
+    //     const time = setHours(setMinutes(selectedDate, selectedDate.getMinutes()), index);
+    //     timeArr.push(time);
+    //   }
+    // }
   }
 
   return (
@@ -74,10 +90,15 @@ const Pickers = ({ timezone, timeFormat, selectedDate, setSelectedDate }) => {
           className={classes.input}
 
           selected={selectedDate && new Date(DateTime.fromJSDate(selectedDate).setZone(timezone).toISO().slice(0, 23))}
+
+          // selected={selectedDate}
+
           timeFormat={timeFormat}
           dateFormat={timeFormat}
 
           onChange={handleDateChange}
+
+          onInputClick={handleTimeInputClick}
 
           placeholderText='hh:mm'
           showTimeSelect

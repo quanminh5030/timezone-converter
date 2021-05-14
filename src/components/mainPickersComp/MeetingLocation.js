@@ -30,7 +30,10 @@ const MeetingLocation = ({ handleSelect, timeFormat, selectedDate, setSelectedDa
                   className: 'location-search-input',
                 })}
                 className={classes.placeholder}
-                onClick={() => setInputPlaceholder('Remote location ...')}
+                onClick={() => {
+                  setInputPlaceholder('Remote location ...');
+                  setRemoteAddress('');
+                  }}
               />
               <div className="autocomplete-dropdown-container"
                 style={{
@@ -46,8 +49,8 @@ const MeetingLocation = ({ handleSelect, timeFormat, selectedDate, setSelectedDa
                     : 'suggestion-item';
                   // inline style for demonstration purpose
                   const style = suggestion.active
-                    ? { backgroundColor: '#fafafa', cursor: 'default' }
-                    : { backgroundColor: '#ffffff', cursor: 'pointer' };
+                    ? { backgroundColor: '#fafafa', cursor: 'default', borderBottom: '0.3px solid gray', borderTop: '0.1px solid gray', padding: 5, borderRight: '1px solid black', borderLeft: '1px solid black', borderCollapse: 'collapse' }
+                    : { backgroundColor: '#ffffff', cursor: 'pointer', borderBottom: '0.3px solid gray', borderTop: '0.1px solid gray', padding: 5, borderRight: '1px solid black', borderLeft: '1px solid black', borderCollapse: 'collapse' };
                   return (
                     <div
                       key={index}
@@ -56,7 +59,7 @@ const MeetingLocation = ({ handleSelect, timeFormat, selectedDate, setSelectedDa
                         style,
                       })}
                     >
-                      <RoomIcon className={classes.icon} />
+                      <RoomIcon className={classes.icon} color='disabled' />
                       <span>{suggestion.description}</span>
                     </div>
                   );

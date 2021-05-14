@@ -8,6 +8,10 @@ const MyLocation = ({ handleSelect, timeFormat, selectedDate, setSelectedDate, y
   const classes = useStyles();
   const [inputPlaceholder, setInputPlaceholder] = useState('Helsinki');
 
+  const myelement = <i>{yourAddress}</i>
+
+  console.log(myelement.props.children)
+
   return (
     <>
       <div style={{ padding: '0% 5% 0% 5%' }}>
@@ -31,6 +35,7 @@ const MyLocation = ({ handleSelect, timeFormat, selectedDate, setSelectedDate, y
                   className={classes.placeholder}
                   onClick={() => {
                     setInputPlaceholder('Your location ...')
+                    setYourAddress('');
                   }}
                 />
                 <div style={{
@@ -41,17 +46,20 @@ const MyLocation = ({ handleSelect, timeFormat, selectedDate, setSelectedDate, y
                 }}>
                   {loading && <div style={{ backgroundColor: 'white' }}>Loading...</div>}
                   {suggestions.map((suggestion, index) => {
-
                     const className = suggestion.active
                       ? 'suggestion-item--active'
                       : 'suggestion-item';
                     // inline style for demonstration purpose
                     const style = suggestion.active
-                      ? { backgroundColor: '#fafafa', cursor: 'default', }
-                      : { backgroundColor: '#ffffff', cursor: 'pointer', };
+                      ? styles.active
+                      : styles.inactive;
+
+                    const subBold = <b>{yourAddress}</b>
+
+                    const suggestWithBold = suggestion.description.replace(yourAddress, subBold.props.children)
+
                     return (
                       <div
-
                         key={index}
                         {...getSuggestionItemProps(suggestion, {
                           className,
@@ -59,7 +67,7 @@ const MyLocation = ({ handleSelect, timeFormat, selectedDate, setSelectedDate, y
                         })}
                       >
                         <RoomIcon className={classes.icon} color='disabled' />
-                        <span>{suggestion.description}</span>
+                        <span>{suggestWithBold}</span>
                       </div>
                     );
                   })}
@@ -80,6 +88,30 @@ const MyLocation = ({ handleSelect, timeFormat, selectedDate, setSelectedDate, y
       </div>
     </>
   )
+}
+
+const styles = {
+  active: {
+    backgroundColor: '#fafafa',
+    cursor: 'default',
+    borderBottom: '0.3px solid gray',
+    borderTop: '0.1px solid gray',
+    padding: 5,
+    borderRight: '1px solid black',
+    borderLeft: '1px solid black',
+    borderCollapse: 'collapse'
+  },
+
+  inactive: {
+    backgroundColor: '#ffffff',
+    cursor: 'pointer',
+    borderBottom: '0.3px solid gray',
+    borderTop: '0.1px solid gray',
+    padding: 5,
+    borderRight: '1px solid black',
+    borderLeft: '1px solid black',
+    borderCollapse: 'collapse'
+  }
 }
 
 export default MyLocation
