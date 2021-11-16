@@ -8,10 +8,6 @@ const MyLocation = ({ handleSelect, timeFormat, selectedDate, setSelectedDate, y
   const classes = useStyles();
   const [inputPlaceholder, setInputPlaceholder] = useState('Helsinki');
 
-  const myelement = <i>{yourAddress}</i>
-
-  console.log(myelement.props.children)
-
   return (
     <>
       <div style={{ padding: '0% 5% 0% 5%' }}>

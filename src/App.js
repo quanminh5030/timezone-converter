@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/core';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import Header from './components/Header';
 import countries from './config/countriesConfig';
@@ -11,7 +11,7 @@ function App() {
 
   const countriesArr = countries;
 
-  const getRandomNum = () => Math.floor(Math.random() * countriesArr.length)
+  const getRandomNum = useCallback(() => Math.floor(Math.random() * countriesArr.length), [countriesArr])
 
   const firstRdNum = getRandomNum();
 
@@ -33,8 +33,9 @@ function App() {
         visitLink: countriesArr[rdNum].link
       })
     }, 10000);
+
     return () => clearInterval(interval);
-  }, []);
+  }, [countriesArr, getRandomNum]);
 
   return (
     <div className={classes.bgImg} style={{ backgroundImage: `url(${country.bgImg})`, }}>

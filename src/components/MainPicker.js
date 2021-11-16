@@ -30,16 +30,15 @@ const MainPicker = ({ setWeather }) => {
         setWeather({ temp: tempC, img: tempIcon })
       })
       .catch(err => console.error(err));
-  }, []);
+  }, [setWeather]);
 
   const handleSelect = (selectedAddress, setTimeZoneId, setAddress) => {
     setAddress(selectedAddress)
 
     geocodeByAddress(selectedAddress)
       .then(results => {
-
-        const lng = results[0].geometry.viewport.La.i;
-        const lat = results[0].geometry.viewport.Ua.i;
+        const lat = results[0].geometry.viewport.Ab.g;
+        const lng = results[0].geometry.viewport.Ra.g;
 
         countryServices.getTimeZone(lat, lng)
           .then(data => setTimeZoneId(data.timeZoneId))

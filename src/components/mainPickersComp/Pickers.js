@@ -95,24 +95,17 @@ const Pickers = ({ timezone, timeFormat, selectedDate, setSelectedDate }) => {
 
           timeFormat={timeFormat}
           dateFormat={timeFormat}
-
           onChange={handleDateChange}
-
           onInputClick={handleTimeInputClick}
-
           placeholderText='hh:mm'
           showTimeSelect
           showTimeSelectOnly
           timeCaption=''
-
           timeIntervals={1000}
-
           includeTimes={timeArr}
-
           injectTimes={timeArr}
         />
       </div>
-
     </div>
   )
 }
