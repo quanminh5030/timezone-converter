@@ -37,7 +37,8 @@ const MainPicker = ({ setWeather }) => {
 
     geocodeByAddress(selectedAddress)
       .then(results => {
-        const lat = results[0].geometry.viewport.Ab.g;
+        console.log('Q', results)
+        const lat = results[0].geometry.viewport.Bb.g;
         const lng = results[0].geometry.viewport.Ra.g;
 
         countryServices.getTimeZone(lat, lng)
